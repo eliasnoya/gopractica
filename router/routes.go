@@ -2,7 +2,7 @@ package router
 
 import (
 	"core/config"
-	"database/sql"
+	"core/model"
 	"html/template"
 	"log"
 	"net/http"
@@ -14,18 +14,13 @@ type HomeStruct struct {
 	PageTitle string
 }
 type Ciudad struct {
-	id     int    `json:"id"`
-	nombre string `json:"nombre"`
+	Id     int    `json:"id"`
+	Nombre string `json:"nombre"`
 }
 
 func Home(w http.ResponseWriter, r *http.Request) {
 
-	db, err := sql.Open("mysql", "dba:dba@tcp(127.0.0.1:3306)/accounts")
-	if err != nil {
-		panic(err.Error())
-	}
-	results, err := db.Query("SELECT id, nombre FROM ciudad")
-
+	results, err := model.GetConn().Query("SELECT id, nombre FROM ciudad")
 	if err != nil {
 		panic(err.Error()) // proper error handling instead of panic in your app
 	}
@@ -33,12 +28,12 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	for results.Next() {
 		var ciudad Ciudad
 		// for each row, scan the result into our tag composite object
-		err = results.Scan(&ciudad.id, &ciudad.nombre)
+		err = results.Scan(&ciudad.Id, &ciudad.Nombre)
 		if err != nil {
 			panic(err.Error()) // proper error handling instead of panic in your app
 		}
 		// and then print out the tag's Name attribute
-		log.Printf(ciudad.nombre)
+		log.Printf(ciudad.Nombre)
 	}
 
 	tmpl := template.Must(template.ParseFiles("templates/layout.html"))

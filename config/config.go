@@ -3,7 +3,7 @@ package config
 import "github.com/tkanos/gonfig"
 
 type Config struct {
-	AppTitle, HttpPort string
+	AppTitle, HttpPort, DbEngine, DbAddress, DbPort, DbUsr, DbPsw, Dbname string
 }
 
 func Get() Config {

@@ -1,4 +1,10 @@
 {
-    "AppTitle" : "Netin GoCore",
-    "HttpPort" : "8080"
+    "AppTitle"  :   "Netin GoCore",
+    "HttpPort"  :   "8080",
+    "DbEngine"  :   "mysql",
+    "DbAddress" :   "127.0.0.1",
+    "DbPort"    :   "3306",
+    "DbUsr"     :   "dba",
+    "DbPws"     :   "dba",
+    "Dbname"    :   "accounts"
 }
